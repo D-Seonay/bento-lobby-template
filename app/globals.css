@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  
+  --radius-3xl: 1.5rem;
+  
+  --spacing-gallery: 12rem;
+  
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  @keyframes shimmer {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(100%); }
+  }
+  --animate-shimmer: shimmer 2s infinite linear;
+  
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  --bg: #f4f4f5;
+  --fg: #09090b;
+  --accent: #18181b;
+  --meta: #71717a;
+  
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(0, 0, 0, 0.08);
+  --card-hover-border: rgba(0, 0, 0, 0.2);
+  
+  --spotlight-color: rgba(0, 0, 0, 0.04);
+  --grid-line: rgba(0, 0, 0, 0.05);
+  --grid-dot: rgba(0, 0, 0, 0.1);
+}
+
+.dark {
+  --bg: #09090b;
+  --fg: #fafafa;
+  --accent: #18181b;
+  --meta: #52525b;
+  
+  --card-bg: rgba(9, 9, 11, 0.8);
+  --card-border: rgba(255, 255, 255, 0.05);
+  --card-hover-border: rgba(255, 255, 255, 0.15);
+  
+  --spotlight-color: rgba(255, 255, 255, 0.04);
+  --grid-line: rgba(255, 255, 255, 0.05);
+  --grid-dot: rgba(255, 255, 255, 0.1);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  *, ::after, ::before {
+    border-color: var(--card-border);
+    transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1), color 0.8s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    @apply antialiased;
+    transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1), color 0.8s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  ::selection {
+    background-color: var(--fg);
+    color: var(--bg);
+    transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1), color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+@layer utilities {
+  .outline-text {
+    -webkit-text-stroke: 1px var(--card-border);
+    color: transparent;
+  }
+
+  .stealth-glow {
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dark .stealth-glow {
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+  }
+}

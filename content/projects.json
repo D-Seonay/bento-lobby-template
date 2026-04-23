@@ -1,0 +1,97 @@
+[
+  {
+    "id": "seonay-portfolio",
+    "title": "Seonay Studio",
+    "description": "Mon univers créatif. Portfolio premium conçu avec Next.js, Framer Motion et une esthétique radicale.",
+    "link": "https://seonay.com",
+    "size": "big",
+    "tags": [
+      "Next.js",
+      "Framer Motion",
+      "Design"
+    ],
+    "icon": "Layout",
+    "isLive": true
+  },
+  {
+    "id": "stat-stats",
+    "title": "STAT-STATS API",
+    "description": "API serverless pour cartes de statistiques GitHub dynamiques.",
+    "link": "https://github-stats-cards.seonay.com",
+    "size": "small",
+    "tags": [
+      "Serverless",
+      "SVG"
+    ],
+    "icon": "Code2",
+    "isLive": true
+  },
+  {
+    "id": "green-event",
+    "title": "The Green Event",
+    "description": "Expérience numérique haute performance pour un festival de musique éco-responsable.",
+    "link": "https://the-green-event.vercel.app",
+    "size": "small",
+    "tags": [
+      "Next.js",
+      "Framer Motion",
+      "Eco-design"
+    ],
+    "icon": "Leaf",
+    "isLive": true
+  },
+  {
+    "id": "mindful-metrics",
+    "title": "Mindful Metrics",
+    "description": "Application de tests de reactivité et de concentration.",
+    "link": "https://mindful-metrics.seonay.com",
+    "size": "small",
+    "tags": [
+      "React",
+      "API",
+      "Drag & Drop"
+    ],
+    "icon": "Brain",
+    "isLive": true
+  },
+  {
+    "id": "devdash",
+    "title": "DevDash Tactical",
+    "description": "Tableau de bord centralisé pour écosystèmes GitHub et GitLab.",
+    "link": "https://dev.seonay.com",
+    "size": "wide",
+    "tags": [
+      "Dashboard",
+      "API"
+    ],
+    "icon": "Terminal",
+    "isLive": true
+  },
+  {
+    "id": "github-readme-gen",
+    "title": "Ultimate GitHub README",
+    "description": "Générateur de profil GitHub haute performance avec automatisation intelligente.",
+    "link": "https://readme-profile-gen.seonay.com",
+    "size": "wide",
+    "tags": [
+      "React",
+      "API",
+      "Drag & Drop"
+    ],
+    "icon": "Github",
+    "isLive": true
+  },
+  {
+    "id": "smart-budget",
+    "title": "My Smart Budget",
+    "description": "App de gestion de finances personnelles et suivi d'objectifs.",
+    "link": "https://smart-budget.seonay.com",
+    "size": "wide",
+    "tags": [
+      "Finance",
+      "React"
+    ],
+    "icon": "Wallet",
+    "isLive": true
+  }
+]

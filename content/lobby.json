@@ -1,0 +1,40 @@
+{
+  "profile": {
+    "name": "Mathéo Delaunay",
+    "jobTitle": "Next.js Developer & Digital Designer",
+    "url": "https://lobby.seonay.com",
+    "company": "Seonay Studio",
+    "bio": "Expert Next.js developer specializing in high-performance architectural frameworks.",
+    "socials": {
+      "github": "https://github.com/D-Seonay",
+      "linkedin": "https://www.linkedin.com/in/matheo-delaunay/",
+      "twitter": "https://twitter.com/matheodelaunay",
+      "mail": "mailto:contact@seonay.studio"
+    }
+  },
+  "theme": {
+    "primary": "#3b82f6",
+    "radius": "1.5rem",
+    "font": "var(--font-geist-sans)"
+  },
+  "grid": [
+    { "id": "main-project", "type": "bento", "projectId": "seonay-portfolio", "size": "xl" },
+    { "id": "control-center", "type": "control-center", "size": "small" },
+    { "id": "github-social", "type": "social", "platform": "github", "size": "small" },
+    { "id": "quick-access", "type": "quick-access", "size": "small" },
+    { "id": "linkedin-social", "type": "social", "platform": "linkedin", "size": "small" },
+    { "id": "all-socials", "type": "socials-wide", "size": "wide" },
+    { "id": "project-1", "type": "bento", "projectId": "stat-stats", "size": "wide" },
+    { "id": "project-2", "type": "bento", "projectId": "mindful-metrics", "size": "wide" },
+    { "id": "social-big", "type": "socials-big", "size": "big" },
+    { "id": "project-3", "type": "bento", "projectId": "devdash", "size": "big" },
+    { "id": "project-4", "type": "bento", "projectId": "green-event", "size": "small" },
+    { "id": "project-5", "type": "bento", "projectId": "github-readme-gen", "size": "small" },
+    { "id": "project-6", "type": "bento", "projectId": "smart-budget", "size": "wide" },
+    { "id": "github-graph", "type": "github-graph", "size": "wide" },
+    { "id": "moon-phase", "type": "moon-phase", "size": "wide" },
+    { "id": "tech-radar", "type": "tech-radar", "size": "wide" },
+    { "id": "wall-of-love", "type": "wall-of-love", "size": "small" },
+    { "id": "build-stats", "type": "build-stats", "size": "small" }
+  ]
+}
