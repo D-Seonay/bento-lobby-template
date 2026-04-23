@@ -7,6 +7,7 @@ import { DndContext, closestCenter } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
 import { saveStudioConfig } from './actions';
 import { SortableGridItem } from '@/components/studio/SortableGridItem';
+import { StudioSidebar } from './StudioSidebar';
 
 export default function StudioPage() {
   const [grid, setGrid] = useState<GridItem[]>((lobbyConfig as LobbyConfig).grid);
@@ -15,6 +16,22 @@ export default function StudioPage() {
   const handleSave = async () => {
     await saveStudioConfig(grid);
     alert('Configuration saved!');
+  };
+
+  const addWidget = (type: string) => {
+    const newId = `${type}-${Date.now()}`;
+    const newItem: GridItem = { id: newId, type, size: 'small' };
+    setGrid([...grid, newItem]);
+    setSelectedId(newId);
+  };
+
+  const updateWidget = (id: string, data: Partial<GridItem>) => {
+    setGrid(grid.map(item => item.id === id ? { ...item, ...data } : item));
+  };
+
+  const deleteWidget = (id: string) => {
+    setGrid(grid.filter(item => item.id !== id));
+    setSelectedId(null);
   };
 
   const handleDragEnd = (event: any) => {
@@ -42,11 +59,13 @@ export default function StudioPage() {
 
   return (
     <div className="flex h-screen bg-black text-white font-mono uppercase">
-      {/* Sidebar Palette */}
-      <div className="w-64 border-r border-zinc-800 p-6 space-y-4">
-        <h2 className="text-xs font-black tracking-widest text-zinc-500 mb-8">Widget Palette</h2>
-        {/* Widget list will go here */}
-      </div>
+      <StudioSidebar 
+        selectedItem={grid.find(i => i.id === selectedId) || null}
+        onAdd={addWidget}
+        onUpdate={updateWidget}
+        onDelete={deleteWidget}
+        onClose={() => setSelectedId(null)}
+      />
 
       {/* Main Canvas */}
       <div className="flex-1 overflow-auto p-12">
