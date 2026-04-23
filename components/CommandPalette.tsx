@@ -75,6 +75,15 @@ export function CommandPalette() {
       icon: SunMoon,
       onSelect: toggleTheme,
     },
+    {
+      id: 'open-studio',
+      title: 'Open Bento Studio',
+      icon: Icons.Layout,
+      onSelect: () => {
+        window.location.href = '/studio';
+        setOpen(false);
+      },
+    },
   ];
 
   const filteredActions = actions.filter((a) =>
