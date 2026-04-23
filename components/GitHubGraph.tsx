@@ -26,6 +26,7 @@ interface ContributionCalendar {
 
 export function GitHubGraph({ size = 'wide' }: { size?: 'small' | 'wide' | 'big' }) {
   const [data, setData] = useState<ContributionCalendar | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const spotlight = useSpotlight();
   const cardRef = useRef<HTMLDivElement>(null);
@@ -83,11 +84,15 @@ export function GitHubGraph({ size = 'wide' }: { size?: 'small' | 'wide' | 'big'
     async function fetchData() {
       try {
         const res = await fetch('/api/github');
-        if (!res.ok) throw new Error('Failed to fetch');
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.error || 'Failed to fetch');
+        }
         const json = await res.json();
         setData(json);
-      } catch (err) {
+      } catch (err: any) {
         console.error(err);
+        setError(err.message);
       } finally {
         setLoading(false);
       }
@@ -96,7 +101,31 @@ export function GitHubGraph({ size = 'wide' }: { size?: 'small' | 'wide' | 'big'
   }, []);
 
   if (loading) return null;
-  if (!data) return null;
+
+  if (error || !data) {
+    return (
+      <motion.div
+        ref={cardRef}
+        className={cn(
+          "relative group overflow-hidden flex flex-col items-center justify-center transition-colors duration-500 min-h-[160px]",
+          "bg-zinc-950/20 backdrop-blur-md border border-dashed border-zinc-800 rounded-3xl opacity-50 grayscale",
+          cardStyles[size]
+        )}
+      >
+        <div className="text-center space-y-2">
+          <div className="flex justify-center">
+            <Github className="w-8 h-8 text-zinc-700" />
+          </div>
+          <div className="space-y-1 px-4">
+            <h3 className="text-[10px] font-black tracking-widest text-zinc-500 uppercase">GitHub_Widget_Disabled</h3>
+            <p className="text-[8px] font-mono text-zinc-600 uppercase tracking-tighter max-w-[140px] mx-auto">
+              {error === 'GITHUB_TOKEN is not defined' ? 'Missing GITHUB_TOKEN in .env' : 'API Connection Error'}
+            </p>
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
 
   const weeksToSlice = size === 'small' ? -8 : -14;
   const allDays = data.weeks.slice(weeksToSlice).flatMap(w => w.contributionDays);

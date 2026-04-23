@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server';
+import fs from 'fs/promises';
+import path from 'path';
 
 const GITHUB_GRAPHQL_API = 'https://api.github.com/graphql';
 
@@ -29,6 +31,10 @@ export async function GET() {
   }
 
   try {
+    const socials = JSON.parse(await fs.readFile(path.join(process.cwd(), 'content', 'socials.json'), 'utf-8'));
+    const githubUrl = socials.github?.url || '';
+    const username = githubUrl.split('/').pop() || 'D-Seonay';
+
     const response = await fetch(GITHUB_GRAPHQL_API, {
       method: 'POST',
       headers: {
@@ -37,7 +43,7 @@ export async function GET() {
       },
       body: JSON.stringify({
         query,
-        variables: { username: 'D-Seonay' },
+        variables: { username },
       }),
     });
 
