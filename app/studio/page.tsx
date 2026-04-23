@@ -4,8 +4,9 @@ import { useState } from 'react';
 import lobbyConfig from '@/content/lobby.json';
 import { LobbyConfig, GridItem } from '@/types/lobby';
 import { DndContext, closestCenter } from '@dnd-kit/core';
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
 import { saveStudioConfig } from './actions';
+import { SortableGridItem } from '@/components/studio/SortableGridItem';
 
 export default function StudioPage() {
   const [grid, setGrid] = useState<GridItem[]>((lobbyConfig as LobbyConfig).grid);
@@ -13,6 +14,29 @@ export default function StudioPage() {
   const handleSave = async () => {
     await saveStudioConfig(grid);
     alert('Configuration saved!');
+  };
+
+  const handleDragEnd = (event: any) => {
+    const { active, over } = event;
+    if (active.id !== over.id) {
+      setGrid((items) => {
+        const oldIndex = items.findIndex(i => i.id === active.id);
+        const newIndex = items.findIndex(i => i.id === over.id);
+        return arrayMove(items, oldIndex, newIndex);
+      });
+    }
+  };
+
+  const handleResize = (id: string) => {
+    const sizes: GridItem['size'][] = ['small', 'wide', 'big', 'xl'];
+    setGrid(items => items.map(item => {
+      if (item.id === id) {
+        const currentIndex = sizes.indexOf(item.size);
+        const nextIndex = (currentIndex + 1) % sizes.length;
+        return { ...item, size: sizes[nextIndex] };
+      }
+      return item;
+    }));
   };
 
   return (
@@ -30,10 +54,14 @@ export default function StudioPage() {
           <button onClick={handleSave} className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-xs font-black transition-colors">SAVE LOBBY</button>
         </div>
         
-        <DndContext collisionDetection={closestCenter}>
-           <div className="grid grid-cols-6 auto-rows-[120px] gap-4">
-             {/* Sortable items will go here */}
-           </div>
+        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <SortableContext items={grid.map(i => i.id)}>
+             <div className="grid grid-cols-6 auto-rows-[120px] gap-4">
+               {grid.map(item => (
+                 <SortableGridItem key={item.id} item={item} onResize={handleResize} />
+               ))}
+             </div>
+          </SortableContext>
         </DndContext>
       </div>
     </div>
