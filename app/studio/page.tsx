@@ -10,6 +10,7 @@ import { SortableGridItem } from '@/components/studio/SortableGridItem';
 
 export default function StudioPage() {
   const [grid, setGrid] = useState<GridItem[]>((lobbyConfig as LobbyConfig).grid);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const handleSave = async () => {
     await saveStudioConfig(grid);
@@ -58,7 +59,13 @@ export default function StudioPage() {
           <SortableContext items={grid.map(i => i.id)}>
              <div className="grid grid-cols-6 auto-rows-[120px] gap-4">
                {grid.map(item => (
-                 <SortableGridItem key={item.id} item={item} onResize={handleResize} />
+                 <SortableGridItem 
+                   key={item.id} 
+                   item={item} 
+                   onResize={handleResize}
+                   isSelected={selectedId === item.id}
+                   onSelect={setSelectedId}
+                 />
                ))}
              </div>
           </SortableContext>
