@@ -84,7 +84,7 @@ export default function Home() {
                 <ProjectSkeleton size="small" />
                 <ProjectSkeleton size="small" />
               </>
-            ) : (
+            ) : config.grid.length > 0 ? (
               config.grid.map((item) => {
                 const Widget = WIDGET_REGISTRY[item.type];
                 if (!Widget) return null;
@@ -98,6 +98,21 @@ export default function Home() {
                   />
                 );
               })
+            ) : (
+              <div className="col-span-full py-20 flex flex-col items-center justify-center border-2 border-dashed border-[var(--card-border)] rounded-3xl group hover:border-[var(--accent)] transition-colors">
+                <div className="text-center space-y-6">
+                  <div className="space-y-2">
+                    <h2 className="text-2xl font-black italic tracking-tighter uppercase">Your Lobby is Empty<span className="text-[var(--accent)]">_</span></h2>
+                    <p className="text-[10px] font-mono text-[var(--meta)] uppercase tracking-[0.2em]">Start building your professional command center</p>
+                  </div>
+                  <a 
+                    href="/studio"
+                    className="inline-block px-8 py-4 bg-[var(--fg)] text-[var(--bg)] text-xs font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all"
+                  >
+                    Open Bento Studio
+                  </a>
+                </div>
+              </div>
             )}
           </BentoGrid>
         </SpotlightGrid>

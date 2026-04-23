@@ -1,0 +1,41 @@
+<h2>Configurator Scope</h2>
+<p class="subtitle">What level of control should the drag-and-drop editor provide?</p>
+
+<div class="options">
+  <div class="option" data-choice="reorder" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Simple Reordering</h3>
+      <p>Users can drag cards to change their sequence. The grid flows automatically. Quick and simple to use.</p>
+      <div class="label">Best for: Quick tweaks</div>
+    </div>
+  </div>
+  <div class="option" data-choice="full" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Full Grid Editor</h3>
+      <p>Users can reorder, resize (small/wide/big/xl), and add/remove widgets from a side panel. Provides total control over the Bento aesthetic.</p>
+      <div class="label">Best for: Power users</div>
+    </div>
+  </div>
+</div>
+
+<div class="mockup">
+  <div class="mockup-header">Editor Interface Concept</div>
+  <div class="mockup-body">
+    <div style="display: flex; gap: 20px; min-height: 200px;">
+      <div style="width: 150px; background: #111; border: 1px solid #333; border-radius: 4px; padding: 10px;">
+        <div class="label">Widgets</div>
+        <div class="placeholder" style="height: 30px; margin-bottom: 5px;">GitHub</div>
+        <div class="placeholder" style="height: 30px; margin-bottom: 5px;">Socials</div>
+        <div class="placeholder" style="height: 30px;">Moon Phase</div>
+      </div>
+      <div style="flex: 1; background: #09090b; border: 1px solid #333; border-radius: 4px; padding: 10px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px;">
+        <div class="placeholder" style="grid-column: span 2; grid-row: span 2; border: 1px dashed var(--accent);">Project A</div>
+        <div class="placeholder" style="border: 1px dashed #444;">Stat</div>
+        <div class="placeholder" style="border: 1px dashed #444;">Stat</div>
+        <div class="placeholder" style="grid-column: span 2; border: 1px dashed #444;">Social</div>
+      </div>
+    </div>
+  </div>
+</div>

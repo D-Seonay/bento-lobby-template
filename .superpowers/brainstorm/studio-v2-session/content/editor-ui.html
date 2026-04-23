@@ -1,0 +1,52 @@
+<h2>Studio Enhancements: Add, Delete, Edit</h2>
+<p class="subtitle">How should the editing experience feel?</p>
+
+<div class="options">
+  <div class="option" data-choice="modal" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Modal (Popup)</h3>
+      <p>A centered dialog for editing a single widget's properties (ID, Type, Project ID). Keeps the workspace clean when not editing.</p>
+      <div class="label">Pros: Focused, standard</div>
+    </div>
+  </div>
+  <div class="option" data-choice="panel" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Dynamic Side Panel</h3>
+      <p>A persistent panel on the right that updates whenever a widget is clicked. Great for rapid-fire editing across the whole grid.</p>
+      <div class="label">Pros: Efficient for multiple edits</div>
+    </div>
+  </div>
+</div>
+
+<div class="mockup">
+  <div class="mockup-header">Editor Interface Concepts</div>
+  <div class="mockup-body">
+    <div class="split">
+      <div style="flex: 1; position: relative;">
+        <div class="label">Option A: Modal</div>
+        <div style="position: absolute; top: 20%; left: 10%; right: 10%; background: #111; border: 1px solid #333; padding: 10px; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.8); z-index: 5;">
+           <div class="label" style="margin-bottom: 5px;">Edit Widget</div>
+           <input class="mock-input" value="github-graph" style="margin-bottom: 5px;">
+           <button class="mock-button" style="width: 100%;">APPLY</button>
+        </div>
+        <div style="opacity: 0.3; display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; height: 100px;">
+          <div class="placeholder"></div><div class="placeholder"></div>
+        </div>
+      </div>
+      
+      <div style="flex: 1; display: flex; gap: 5px;">
+        <div style="flex: 1; opacity: 0.3; display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px;">
+           <div class="placeholder"></div><div class="placeholder"></div>
+        </div>
+        <div style="width: 80px; background: #111; border-left: 1px solid #333; padding: 5px;">
+           <div class="label" style="font-size: 8px;">PROPERTIES</div>
+           <div style="height: 10px; background: #222; margin-top: 5px;"></div>
+           <div style="height: 10px; background: #222; margin-top: 5px;"></div>
+        </div>
+        <div class="label" style="position: absolute; bottom: 0;">Option B: Panel</div>
+      </div>
+    </div>
+  </div>
+</div>

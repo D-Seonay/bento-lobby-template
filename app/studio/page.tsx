@@ -2,31 +2,50 @@
 
 import { useState } from 'react';
 import lobbyConfig from '@/content/lobby.json';
-import { LobbyConfig, GridItem } from '@/types/lobby';
+import projectsData from '@/content/projects.json';
+import { LobbyConfig, GridItem, Theme, Profile } from '@/types/lobby';
+import { Project } from '@/types/project';
 import { DndContext, closestCenter } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
-import { saveStudioConfig } from './actions';
+import { saveStudioConfig, addNewProject } from './actions';
 import { SortableGridItem } from '@/components/studio/SortableGridItem';
 import { StudioSidebar } from './StudioSidebar';
+import { ThemeConfiguration } from '@/components/ThemeConfiguration';
 
 export default function StudioPage() {
   const [grid, setGrid] = useState<GridItem[]>((lobbyConfig as LobbyConfig).grid);
+  const [theme, setTheme] = useState<Theme>((lobbyConfig as LobbyConfig).theme);
+  const [profile, setProfile] = useState<Profile>((lobbyConfig as LobbyConfig).profile);
+  const [projects, setProjects] = useState<Project[]>(projectsData as Project[]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const handleSave = async () => {
-    await saveStudioConfig(grid);
+    await saveStudioConfig({ grid, theme, profile });
     alert('Configuration saved!');
   };
 
-  const addWidget = (type: string) => {
+  const handleAddProject = async (project: Project) => {
+    await addNewProject(project);
+    setProjects([...projects, project]);
+  };
+
+  const addWidget = (type: string, size: GridItem['size'] = 'small') => {
     const newId = `${type}-${Date.now()}`;
-    const newItem: GridItem = { id: newId, type, size: 'small' };
+    const newItem: GridItem = { id: newId, type, size };
     setGrid([...grid, newItem]);
     setSelectedId(newId);
   };
 
   const updateWidget = (id: string, data: Partial<GridItem>) => {
     setGrid(grid.map(item => item.id === id ? { ...item, ...data } : item));
+  };
+
+  const updateTheme = (data: Partial<Theme>) => {
+    setTheme({ ...theme, ...data });
+  };
+
+  const updateProfile = (data: Partial<Profile>) => {
+    setProfile({ ...profile, ...data });
   };
 
   const deleteWidget = (id: string) => {
@@ -59,10 +78,17 @@ export default function StudioPage() {
 
   return (
     <div className="flex h-screen bg-black text-white font-mono uppercase">
+      <ThemeConfiguration theme={theme} />
       <StudioSidebar 
         selectedItem={grid.find(i => i.id === selectedId) || null}
+        theme={theme}
+        profile={profile}
+        projects={projects}
         onAdd={addWidget}
         onUpdate={updateWidget}
+        onUpdateTheme={updateTheme}
+        onUpdateProfile={updateProfile}
+        onAddProject={handleAddProject}
         onDelete={deleteWidget}
         onClose={() => setSelectedId(null)}
       />
@@ -76,16 +102,28 @@ export default function StudioPage() {
         
         <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext items={grid.map(i => i.id)}>
-             <div className="grid grid-cols-6 auto-rows-[120px] gap-4">
-               {grid.map(item => (
-                 <SortableGridItem 
-                   key={item.id} 
-                   item={item} 
-                   onResize={handleResize}
-                   isSelected={selectedId === item.id}
-                   onSelect={setSelectedId}
-                 />
-               ))}
+             <div className="grid grid-cols-6 auto-rows-[120px] gap-4 min-h-[400px] border-2 border-dashed border-zinc-800 rounded-3xl p-4 transition-colors hover:border-zinc-700">
+               {grid.length > 0 ? (
+                 grid.map(item => (
+                   <SortableGridItem 
+                     key={item.id} 
+                     item={item} 
+                     onResize={handleResize}
+                     isSelected={selectedId === item.id}
+                     onSelect={setSelectedId}
+                   />
+                 ))
+               ) : (
+                 <div className="col-span-full flex flex-col items-center justify-center text-zinc-500 space-y-4">
+                   <div className="w-12 h-12 rounded-full border-2 border-dashed border-zinc-800 flex items-center justify-center">
+                     <span className="text-xl">+</span>
+                   </div>
+                   <div className="text-center">
+                     <p className="text-xs font-black tracking-widest uppercase">Your grid is empty</p>
+                     <p className="text-[10px] mt-1 opacity-60">Use the palette on the left to add your first widget</p>
+                   </div>
+                 </div>
+               )}
              </div>
           </SortableContext>
         </DndContext>

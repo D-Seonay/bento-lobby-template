@@ -1,0 +1,36 @@
+<h2>Studio V2 Design: Contextual Sidebar</h2>
+<p class="subtitle">Dual-mode management for the Bento grid</p>
+
+<div class="mockup">
+  <div class="mockup-header">State Logic</div>
+  <div class="mockup-body">
+    <div style="display: flex; gap: 20px;">
+      <div style="flex: 1; border: 1px solid #333; padding: 10px; border-radius: 4px;">
+        <div class="label">1. Palette Mode</div>
+        <ul style="font-size: 10px; margin-top: 5px;">
+          <li>+ Add GitHub Graph</li>
+          <li>+ Add Project Card</li>
+          <li>+ Add Social Links</li>
+        </ul>
+      </div>
+      <div style="display: flex; align-items: center; color: var(--accent);">➡</div>
+      <div style="flex: 1; border: 1px solid var(--accent); padding: 10px; border-radius: 4px;">
+        <div class="label">2. Edit Mode</div>
+        <p style="font-size: 9px; margin: 5px 0;">Editing: [github-123]</p>
+        <div style="height: 10px; background: #333; margin-bottom: 5px;"></div>
+        <button class="mock-button" style="width: 100%; font-size: 8px; background: #511;">DELETE</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="split">
+  <div class="mock-content">
+    <h4>Add Logic</h4>
+    <p style="font-size: 11px;">Clicking "Add" appends to the grid array and focuses the new item.</p>
+  </div>
+  <div class="mock-content">
+    <h4>Delete Logic</h4>
+    <p style="font-size: 11px;">Filter the grid array by ID to remove, then clear selection.</p>
+  </div>
+</div>

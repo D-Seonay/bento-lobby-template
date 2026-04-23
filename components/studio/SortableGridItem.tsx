@@ -2,6 +2,7 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { GridItem } from '@/types/lobby';
+import { WIDGET_REGISTRY } from '@/components/registry';
 
 export function SortableGridItem({ 
   item, 
@@ -15,6 +16,7 @@ export function SortableGridItem({
   onSelect: (id: string) => void
 }) {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: item.id });
+  const Widget = WIDGET_REGISTRY[item.type];
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -32,23 +34,51 @@ export function SortableGridItem({
     <div
       ref={setNodeRef}
       style={style}
-      onClick={() => onSelect(item.id)}
-      className={`${spanClasses[item.size]} bg-zinc-900 border ${isSelected ? 'border-blue-500 ring-1 ring-blue-500' : 'border-zinc-800'} p-4 flex flex-col justify-between group relative cursor-pointer`}
+      className={`${spanClasses[item.size]} relative group`}
     >
-      <div {...attributes} {...listeners} className="absolute top-2 right-2 w-4 h-4 bg-zinc-800 rounded cursor-grab active:cursor-grabbing z-20" />
-      
-      <div className="relative z-10 pointer-events-none">
-        <span className="text-[10px] text-zinc-500">{item.type}</span>
-        <h3 className="text-xs font-black truncate">{item.id}</h3>
+      {/* Real Widget Rendering */}
+      <div className={`w-full h-full overflow-hidden pointer-events-none rounded-3xl border-2 transition-all ${isSelected ? 'border-blue-500 ring-4 ring-blue-500/20' : 'border-transparent'}`}>
+        {Widget ? (
+          <Widget 
+            size={item.size} 
+            projectId={item.projectId} 
+            platform={item.platform} 
+          />
+        ) : (
+          <div className="w-full h-full bg-zinc-900 border border-zinc-800 flex items-center justify-center">
+            <span className="text-[10px] text-zinc-500 uppercase font-black">{item.type}</span>
+          </div>
+        )}
       </div>
 
-      <div className="relative z-10 flex gap-2">
+      {/* Interaction Overlay (Selection) */}
+      <div 
+        onClick={(e) => {
+          e.stopPropagation();
+          onSelect(item.id);
+        }}
+        className="absolute inset-0 z-10 cursor-pointer"
+      />
+
+      {/* Drag Handle */}
+      <div 
+        {...attributes} 
+        {...listeners} 
+        className="absolute top-4 right-4 w-8 h-8 bg-black/50 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing z-20 opacity-0 group-hover:opacity-100 transition-opacity"
+      >
+        <div className="grid grid-cols-2 gap-0.5">
+          {[1,2,3,4].map(i => <div key={i} className="w-1 h-1 bg-white/50 rounded-full" />)}
+        </div>
+      </div>
+
+      {/* Size Badge */}
+      <div className="absolute bottom-4 left-4 z-20">
         <button 
           onClick={(e) => {
             e.stopPropagation();
             onResize(item.id);
           }}
-          className="pointer-events-auto text-[8px] px-2 py-1 bg-zinc-800 hover:bg-blue-600 transition-colors"
+          className="px-3 py-1 bg-black/50 backdrop-blur-md border border-white/10 text-[10px] font-black rounded-full hover:bg-blue-600 transition-colors"
         >
           {item.size.toUpperCase()}
         </button>

@@ -1,0 +1,55 @@
+<h2>Interaction Models: Bento Studio V2</h2>
+<p class="subtitle">Choosing how to add, edit, and delete</p>
+
+<div class="options">
+  <div class="option" data-choice="sidebar" onclick="toggleSelect(this)">
+    <div class="letter">1</div>
+    <div class="content">
+      <h3>Contextual Sidebar</h3>
+      <div class="label">RECOMMENDED</div>
+      <p>The sidebar handles everything. It shows the "Widget Palette" by default. Click a card on the grid, and the sidebar switches to show that card's "Properties" (Edit/Delete).</p>
+    </div>
+  </div>
+  <div class="option" data-choice="modal" onclick="toggleSelect(this)">
+    <div class="letter">2</div>
+    <div class="content">
+      <h3>Toolbar + Modal</h3>
+      <p>Hover over a card to see icons. Click the trash to delete. Click the pencil to open a modal with settings.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="inline" onclick="toggleSelect(this)">
+    <div class="letter">3</div>
+    <div class="content">
+      <h3>Live Palette + Inline</h3>
+      <p>Always drag-to-add. Click a card to edit its ID/Type directly in place on the grid.</p>
+    </div>
+  </div>
+</div>
+
+<div class="mockup">
+  <div class="mockup-header">Recommended: Contextual Sidebar</div>
+  <div class="mockup-body">
+    <div style="display: flex; height: 250px;">
+      <div style="width: 150px; border-right: 1px solid #333; padding: 10px; background: #111;">
+        <div class="label" style="color: var(--accent);">EDITING: GITHUB</div>
+        <div style="margin-top: 15px; font-size: 10px;">
+          <label>Widget ID</label>
+          <input class="mock-input" value="github-graph" style="margin-top: 2px;">
+          <label style="margin-top: 10px; display: block;">Type</label>
+          <select style="width: 100%; background: #222; border: 1px solid #444; color: #fff; font-size: 10px; padding: 5px; border-radius: 4px;">
+            <option>github-graph</option>
+            <option>socials</option>
+          </select>
+          <button class="mock-button" style="width: 100%; background: #822; margin-top: 20px;">DELETE WIDGET</button>
+        </div>
+      </div>
+      <div style="flex: 1; padding: 20px;">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+          <div class="placeholder" style="border: 2px solid var(--accent);">SELECTED</div>
+          <div class="placeholder" style="opacity: 0.5;"></div>
+          <div class="placeholder" style="opacity: 0.5;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

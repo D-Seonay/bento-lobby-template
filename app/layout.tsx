@@ -69,10 +69,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <ThemeConfiguration theme={config.theme} />
-        <Script
-          id="theme-init"
-          strategy="beforeInteractive"
+        <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
@@ -89,6 +86,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--bg)] text-[var(--fg)] selection:bg-[var(--fg)] selection:text-[var(--bg)]">
+        <ThemeConfiguration theme={config.theme} />
         {/* Technical Blueprint Grid */}
         <div className="fixed inset-0 z-[-1] pointer-events-none">
           <svg className="h-full w-full opacity-[0.9]" xmlns="http://www.w3.org/2000/svg">

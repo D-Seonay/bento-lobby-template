@@ -1,0 +1,37 @@
+<h2>Studio Design: Technical Overview</h2>
+<p class="subtitle">Architecture for the visual configuration tool</p>
+
+<div class="mockup">
+  <div class="mockup-header">Component Relationships</div>
+  <div class="mockup-body">
+    <div style="display: flex; flex-direction: column; gap: 15px;">
+      <div style="border: 1px solid #444; padding: 10px; border-radius: 4px; background: #111;">
+        <div class="label">Client Side (Studio Page)</div>
+        <p style="font-size: 11px;">React State + dnd-kit (Drag/Resize events)</p>
+      </div>
+      <div style="text-align: center; color: var(--accent);">⬇ [JSON Payload] ⬇</div>
+      <div style="border: 1px solid #444; padding: 10px; border-radius: 4px; background: #111;">
+        <div class="label">Server Side (Action)</div>
+        <p style="font-size: 11px;">Node.js <code>fs</code> module writes to <code>lobby.json</code></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pros-cons">
+  <div class="pros">
+    <h4>Studio Features</h4>
+    <ul>
+      <li><b>Resize Handles:</b> Instantly toggle between S, W, B, XL.</li>
+      <li><b>Live Snap:</b> Cards snap to the grid columns.</li>
+      <li><b>One-Click Save:</b> Updates the actual project file.</li>
+    </ul>
+  </div>
+  <div class="cons">
+    <h4>Complexity</h4>
+    <ul>
+      <li>Requires installing <code>@dnd-kit/core</code> and <code>@dnd-kit/sortable</code>.</li>
+      <li>Need to handle "Empty Slots" for sparse grids.</li>
+    </ul>
+  </div>
+</div>
