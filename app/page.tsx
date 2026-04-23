@@ -1,10 +1,15 @@
 'use client';
 
 import { WIDGET_REGISTRY } from '@/components/registry';
+import { CommandPalette } from '@/components/CommandPalette';
+import { SpotlightGrid } from '@/components/SpotlightGrid';
+import { BentoGrid } from '@/components/BentoGrid';
+import { ProjectSkeleton } from '@/components/ProjectSkeleton';
 import lobbyConfig from '@/content/lobby.json';
 import { LobbyConfig } from '@/types/lobby';
 import { Project } from '@/types/project';
 import { useEffect, useState } from 'react';
+import Script from 'next/script';
 
 export default function Home() {
   const config = lobbyConfig as LobbyConfig;
@@ -47,7 +52,8 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
-      <script
+      <Script
+        id="json-ld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />

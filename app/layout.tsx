@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import lobbyConfig from '@/content/lobby.json';
 import { ThemeConfiguration } from '@/components/ThemeConfiguration';
@@ -69,7 +70,9 @@ export default function RootLayout({
     >
       <head>
         <ThemeConfiguration theme={config.theme} />
-        <script
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
